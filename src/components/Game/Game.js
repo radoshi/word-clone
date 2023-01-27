@@ -3,9 +3,10 @@ import React from "react";
 import { sample, range } from "../../utils";
 import { WORDS } from "../../data";
 import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
+import { checkGuess } from "../../game-helpers";
 
 import GuessInput from "../GuessInput";
-import Board from "../Board";
+import Guess from "../Guess";
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -31,7 +32,18 @@ function Game() {
 
   return (
     <>
-      <Board guesses={guesses} />
+      {guesses.slice(0, nextGuess).map((guess, index) => (
+        <div className="guess-results" key={index}>
+          <Guess checkedGuess={checkGuess(guess, answer)} />
+        </div>
+      ))}
+
+      {range(nextGuess, NUM_OF_GUESSES_ALLOWED).map((i) => (
+        <div className="guess-results" key={i}>
+          <Guess />
+        </div>
+      ))}
+
       <GuessInput addGuess={addGuess} />
     </>
   );
