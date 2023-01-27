@@ -5,7 +5,7 @@ function Guess({ checkedGuess }) {
   if (!checkedGuess) {
     return (
       <p className="guess">
-        {range(6).map((_, index) => (
+        {range(5).map((_, index) => (
           <span className="cell" key={index}>
             {" "}
           </span>
