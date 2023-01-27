@@ -1,13 +1,13 @@
 import React from "react";
 
-function Guess({ setGuess: setGameGuess }) {
+function Guess({ addGuess }) {
   const [guess, setGuess] = React.useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (guess.length === 5) {
       console.info("Submitting guess", guess);
-      setGameGuess(guess);
+      addGuess(guess);
       setGuess("");
     }
   };
