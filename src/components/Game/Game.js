@@ -2,9 +2,10 @@ import React from "react";
 
 import { sample, range } from "../../utils";
 import { WORDS } from "../../data";
-import { NUM_OF_GUESSES_ALLOWED } from "../../constants";
+import { NUM_OF_GUESSES_ALLOWED, GAME_STATES } from "../../constants";
 import { checkGuess } from "../../game-helpers";
 
+import Banner from "../Banner";
 import GuessInput from "../GuessInput";
 import Guess from "../Guess";
 
@@ -20,18 +21,27 @@ function Game() {
 
   const [nextGuess, setNextGuess] = React.useState(0);
 
+  const [state, setState] = React.useState(GAME_STATES.active);
+
   const addGuess = (guess) => {
-    if (nextGuess >= NUM_OF_GUESSES_ALLOWED) {
-      return;
-    }
     const tmpGuesses = [...guesses];
     tmpGuesses[nextGuess] = guess;
     setGuesses(tmpGuesses);
     setNextGuess(nextGuess + 1);
+    console.log(`Checking ${guess} against ${answer}`);
+    if (guess.toUpperCase() === answer) {
+      console.log("You won!");
+      setState(GAME_STATES.won);
+    } else if (nextGuess + 1 === NUM_OF_GUESSES_ALLOWED) {
+      // End the game
+      setState(GAME_STATES.lost);
+    }
   };
 
   return (
     <>
+      <Banner state={state} />
+
       {guesses.slice(0, nextGuess).map((guess, index) => (
         <div className="guess-results" key={index}>
           <Guess checkedGuess={checkGuess(guess, answer)} />
@@ -44,7 +54,7 @@ function Game() {
         </div>
       ))}
 
-      <GuessInput addGuess={addGuess} />
+      <GuessInput addGuess={addGuess} state={state} />
     </>
   );
 }

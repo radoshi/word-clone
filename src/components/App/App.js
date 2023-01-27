@@ -1,5 +1,6 @@
-import Game from '../Game';
-import Header from '../Header';
+import React from "react";
+import Game from "../Game";
+import Header from "../Header";
 
 function App() {
   return (
@@ -7,7 +8,9 @@ function App() {
       <Header />
 
       <div className="game-wrapper">
-        <Game />
+        <React.StrictMode>
+          <Game />
+        </React.StrictMode>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 import React from "react";
 
-function GuessInput({ addGuess }) {
+import { GAME_STATES } from "../../constants";
+
+function GuessInput({ addGuess, state }) {
   const [guess, setGuess] = React.useState("");
 
   const handleSubmit = (event) => {
@@ -17,6 +19,7 @@ function GuessInput({ addGuess }) {
       <label htmlFor="guess-input">Enter guess:</label>
       <input
         id="guess-input"
+        disabled={state !== GAME_STATES.active}
         type="text"
         value={guess}
         onChange={(event) => {
