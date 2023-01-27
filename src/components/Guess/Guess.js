@@ -1,29 +1,14 @@
 import React from "react";
 
-function Guess({ addGuess }) {
-  const [guess, setGuess] = React.useState("");
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (guess.length === 5) {
-      console.info("Submitting guess", guess);
-      addGuess(guess);
-      setGuess("");
-    }
-  };
-
+function Guess({ guess }) {
   return (
-    <form className="guess-input-wrapper" onSubmit={handleSubmit}>
-      <label htmlFor="guess-input">Enter guess:</label>
-      <input
-        id="guess-input"
-        type="text"
-        value={guess}
-        onChange={(event) => {
-          event.target.value.length <= 5 && setGuess(event.target.value);
-        }}
-      />
-    </form>
+    <p className="guess">
+      {guess.split("").map((letter, index) => (
+        <span className="cell" key={index}>
+          {letter}
+        </span>
+      ))}
+    </p>
   );
 }
 
